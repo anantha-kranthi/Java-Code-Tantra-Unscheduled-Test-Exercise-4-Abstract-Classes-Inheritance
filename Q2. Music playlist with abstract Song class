@@ -1,0 +1,101 @@
+/*Q2. You are designing a class hierarchy to model a music playlist. Implement the required functionality using abstract classes, inheritance,
+constructors, and method overriding.
+Create an abstract class named Song with:
+• A String variable title representing the title of the song.
+• A parameterized constructor to initialize title.
+• An abstract method play() that displays a message indicating that the song is playing.
+Mp3Song
+Create a class named Mp3Song that extends Song.
+The class must contain:
+• A double variable fileSize representing the size of the MP3 file.
+• A parameterized constructor that initializes the inherited title and fileSize.
+• An overridden play() method that displays:
+Playing MP3 song: <title>
+StreamingSong
+Create a class named StreamingSong that extends Song.
+The class must contain:
+• A boolean variable isHighQuality indicating whether the song is streamed in high quality.
+• A parameterized constructor that initializes the inherited title and isHighQuality.
+• An overridden play() method that displays:
+Streaming <quality> quality song: <title>
+where <quality> is:
+• high when isHighQuality is true
+• normal when isHighQuality is false
+In the main() method:
+1. Create a Scanner object.
+2. Read the MP3 song title.
+3. Read the MP3 file size as a double.
+4. Create an Mp3Song object using the entered values.
+5. Invoke its play() method.
+6. Read the streaming song title.
+7. Read the high-quality status as a boolean.
+8. Create a StreamingSong object using the entered values.
+9. Invoke its play() method.
+10. Close the Scanner.
+Input Format:
+The input consists of the following values in order:
+• One line containing the title of the MP3 song.
+• One line containing the MP3 file size as a double.
+• One line containing the title of the streaming song.
+• One line containing a boolean value indicating whether the streaming song is in high quality. The value can be case-insensitive.
+Each value is provided on a separate line.
+Output Format:
+Display the playback messages in the same order as the songs are created:
+Playing MP3 song: <mp3_title>
+Streaming <quality> quality song: <streaming title>
+*/
+import java.util.Scanner;
+ 
+abstract class Song {
+    String title;
+ 
+    Song(String title) {
+        this.title = title;
+    }
+ 
+    abstract void play();
+}
+ 
+class Mp3Song extends Song {
+    double fileSize;
+ 
+    Mp3Song(String title, double fileSize) {
+        super(title);
+        this.fileSize = fileSize;
+    }
+ 
+    @Override
+    void play() {
+        System.out.println("Playing MP3 song: " + title);
+    }
+}
+ 
+class StreamingSong extends Song {
+    boolean isHighQuality;
+ 
+    StreamingSong(String title, boolean isHighQuality) {
+        super(title);
+        this.isHighQuality = isHighQuality;
+    }
+ 
+    @Override
+    void play() {
+        String quality = isHighQuality ? "high" : "normal";
+        System.out.println("Streaming " + quality + " quality song: " + title);
+    }
+}
+ 
+public class MusicPlaylist {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String mp3Title = sc.nextLine().trim();
+        double size = Double.parseDouble(sc.nextLine().trim());
+        Song mp3 = new Mp3Song(mp3Title, size);
+        mp3.play();
+        String streamTitle = sc.nextLine().trim();
+        boolean hq = Boolean.parseBoolean(sc.nextLine().trim());   // case-insensitive
+        Song stream = new StreamingSong(streamTitle, hq);
+        stream.play();
+        sc.close();
+    }
+}
