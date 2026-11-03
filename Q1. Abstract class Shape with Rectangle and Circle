@@ -1,0 +1,107 @@
+/*Q1. Create an abstract class named Shape to represent geometric shapes.
+The Shape class must contain:
+• An abstract method double calculateArea() that calculates and returns the area.
+• An abstract method double calculatePerimeter() that calculates and returns the perimeter.
+• Aconcrete method displayDetails() that calls calculateArea() and calculatePerimeter() to obtain the calculated values and displays
+them.
+The output for each shape should be:
+Shape details:
+Area: <area>
+Perimeter: <perimeter>
+Rectangle
+Create a class named Rectangle that extends Shape.
+The Rectangle class must:
+• Contain double variables length and width.
+• Override calculateArea() using:
+Area = length x width
+• Override calculatePerimeter() using:
+Perimeter = 2 x (length + width)
+• Implement inputDetails(Scanner scanner) to read the length and width of the rectangle.
+Circle
+Create a class named Circle that extends Shape.
+The Circle class must:
+• Contain a double variable radius.
+• Override calculateArea() using:
+Area = Math.PI x radius x radius
+• Override calculatePerimeter() using:
+Perimeter = 2 x Math.PI x radius
+• Implement inputDetails(Scanner scanner) to read the radius of the circle.
+In the main() method:
+1. Create a Scanner object.
+2. Create a Rectangle object.
+3. Read the rectangle's length and width using inputDetails().
+4. Display the rectangle's details using displayDetails().
+5. Create a Circle object.
+6. Read the circle's radius using inputDetails().
+7. Display the circle's details using displayDetails().
+8. Close the Scanner.
+Input Format:
+The input consists of the following values in order:
+• One double value representing the length of the rectangle.
+• One double value representing the width of the rectangle.
+• One double value representing the radius of the circle.
+Each value is provided on a separate line.
+Output Format:
+Display the rectangle's details followed by the circle's details:
+Shape details:
+Area: <rectangle_area>
+Perimeter: <rectangle_perimeter>
+Shape details:
+Area: <circle_area>
+Perimeter: <circle_perimeter>
+*/
+import java.util.Scanner;
+ 
+abstract class Shape {
+    abstract double calculateArea();
+    abstract double calculatePerimeter();
+ 
+    // Concrete method in the abstract class
+    void displayDetails() {
+        System.out.println("Shape details:");
+        System.out.printf("Area: %.2f%n", calculateArea());
+        System.out.printf("Perimeter: %.2f%n", calculatePerimeter());
+    }
+}
+ 
+class Rectangle extends Shape {
+    double length, width;
+ 
+    void inputDetails(Scanner scanner) {
+        length = scanner.nextDouble();
+        width = scanner.nextDouble();
+    }
+ 
+    @Override
+    double calculateArea() { return length * width; }
+ 
+    @Override
+    double calculatePerimeter() { return 2 * (length + width); }
+}
+ 
+class Circle extends Shape {
+    double radius;
+ 
+    void inputDetails(Scanner scanner) {
+        radius = scanner.nextDouble();
+    }
+ 
+    @Override
+    double calculateArea() { return Math.PI * radius * radius; }
+ 
+    @Override
+    double calculatePerimeter() { return 2 * Math.PI * radius; }
+}
+ 
+public class ShapeDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Rectangle rect = new Rectangle();
+        rect.inputDetails(scanner);
+        rect.displayDetails();
+        Circle circle = new Circle();
+        circle.inputDetails(scanner);
+        circle.displayDetails();
+        scanner.close();
+    }
+}
